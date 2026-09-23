@@ -73,6 +73,7 @@ const authMessage = document.getElementById("authMessage");
 
 const logoutBtn = document.getElementById("logoutBtn");
 
+const profileBtn = document.getElementById("profileBtn");
 
 /* =====================================
    CHAT ELEMENTS
@@ -311,6 +312,58 @@ onAuthStateChanged(auth, function(user) {
 
 });
 
+/* =====================================
+   PROFILE
+   ===================================== */
+
+profileBtn.addEventListener("click", function() {
+
+    if (!auth.currentUser) {
+
+        alert("Please login first.");
+
+        return;
+
+    }
+
+    const currentName =
+        auth.currentUser.displayName || "";
+
+    const name =
+        prompt(
+            "Enter your display name:",
+            currentName
+        );
+
+    if (name === null) {
+
+        return;
+
+    }
+
+    const trimmedName = name.trim();
+
+    if (trimmedName === "") {
+
+        alert("Please enter a valid name.");
+
+        return;
+
+    }
+
+    if (trimmedName.length > 30) {
+
+        alert("Name must be 30 characters or less.");
+
+        return;
+
+    }
+
+    alert(
+        "Profile name saved: " + trimmedName
+    );
+
+});
 
 /* =====================================
    LOGOUT
