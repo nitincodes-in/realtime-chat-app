@@ -1,27 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Chattera</title>
 
-    <!-- App CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1>Welcome to Chattera</h1>
-    <p>Real-time chatting app</p>
+    <div class="chat-app">
 
-    <!-- Firebase SDK -->
+        <!-- Header -->
+        <header class="chat-header">
+            <div class="brand">
+                <div class="logo">C</div>
+                <div>
+                    <h1>Chattera</h1>
+                    <span>Online</span>
+                </div>
+            </div>
+
+            <button class="menu-btn">⋮</button>
+        </header>
+
+        <!-- Messages -->
+        <main class="messages" id="messages">
+
+            <div class="message received">
+                <div class="bubble">
+                    Welcome to Chattera 👋
+                    <span class="time">Now</span>
+                </div>
+            </div>
+
+            <div class="message sent">
+                <div class="bubble">
+                    Hello Chattera!
+                    <span class="time">Now ✓</span>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Message Input -->
+        <footer class="message-area">
+
+            <button class="attach-btn">＋</button>
+
+            <input
+                type="text"
+                id="messageInput"
+                placeholder="Type a message..."
+                autocomplete="off"
+            >
+
+            <button id="sendBtn" class="send-btn">
+                ➤
+            </button>
+
+        </footer>
+
+    </div>
+
+    <!-- Firebase -->
     <script type="module" src="https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js"></script>
 
     <!-- App JavaScript -->
     <script type="module" src="app.js"></script>
-</body>
 
+</body>
 </html>
