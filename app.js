@@ -426,7 +426,9 @@ onValue(messagesRef, function(snapshot) {
             document.createElement("div");
 
         messageDiv.className =
-            "message sent";
+    message.userId === auth.currentUser?.uid
+        ? "message sent"
+        : "message received";
 
 
         const bubble =
