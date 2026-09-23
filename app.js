@@ -76,6 +76,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 
 const profileBtn = document.getElementById("profileBtn");
 
+
 /* =====================================
    CHAT ELEMENTS
    ===================================== */
@@ -313,11 +314,12 @@ onAuthStateChanged(auth, function(user) {
 
 });
 
+
 /* =====================================
    PROFILE
    ===================================== */
 
-profileBtn.addEventListener("click", function() {
+profileBtn.addEventListener("click", async function() {
 
     if (!auth.currentUser) {
 
@@ -327,8 +329,10 @@ profileBtn.addEventListener("click", function() {
 
     }
 
+
     const currentName =
         auth.currentUser.displayName || "";
+
 
     const name =
         prompt(
@@ -336,13 +340,17 @@ profileBtn.addEventListener("click", function() {
             currentName
         );
 
+
     if (name === null) {
 
         return;
 
     }
 
-    const trimmedName = name.trim();
+
+    const trimmedName =
+        name.trim();
+
 
     if (trimmedName === "") {
 
@@ -352,6 +360,7 @@ profileBtn.addEventListener("click", function() {
 
     }
 
+
     if (trimmedName.length > 30) {
 
         alert("Name must be 30 characters or less.");
@@ -360,11 +369,43 @@ profileBtn.addEventListener("click", function() {
 
     }
 
-    alert(
-        "Profile name saved: " + trimmedName
-    );
+
+    try {
+
+        await updateProfile(
+            auth.currentUser,
+            {
+                displayName: trimmedName
+            }
+        );
+
+
+        alert(
+            "Profile name saved: " + trimmedName
+        );
+
+
+        console.log(
+            "Profile name:",
+            auth.currentUser.displayName
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Profile update error:",
+            error
+        );
+
+
+        alert(
+            "Unable to save profile name. Please try again."
+        );
+
+    }
 
 });
+
 
 /* =====================================
    LOGOUT
@@ -375,7 +416,10 @@ logoutBtn.addEventListener("click", function() {
     signOut(auth)
         .catch((error) => {
 
-            console.error("Logout error:", error);
+            console.error(
+                "Logout error:",
+                error
+            );
 
         });
 
@@ -388,7 +432,8 @@ logoutBtn.addEventListener("click", function() {
 
 function sendMessage() {
 
-    const text = messageInput.value.trim();
+    const text =
+        messageInput.value.trim();
 
 
     if (text === "") {
@@ -427,7 +472,11 @@ function sendMessage() {
     })
     .catch((error) => {
 
-        console.error("Message send error:", error);
+        console.error(
+            "Message send error:",
+            error
+        );
+
 
         alert(
             "Message could not be sent. Please check your connection and try again."
@@ -442,24 +491,30 @@ function sendMessage() {
    SEND BUTTON
    ===================================== */
 
-sendBtn.addEventListener("click", sendMessage);
+sendBtn.addEventListener(
+    "click",
+    sendMessage
+);
 
 
 /* =====================================
    ENTER KEY
    ===================================== */
 
-messageInput.addEventListener("keydown", function(event) {
+messageInput.addEventListener(
+    "keydown",
+    function(event) {
 
-    if (event.key === "Enter") {
+        if (event.key === "Enter") {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        sendMessage();
+            sendMessage();
+
+        }
 
     }
-
-});
+);
 
 
 /* =====================================
@@ -473,20 +528,23 @@ onValue(messagesRef, function(snapshot) {
 
     snapshot.forEach(function(childSnapshot) {
 
-        const message = childSnapshot.val();
+        const message =
+            childSnapshot.val();
 
 
         const messageDiv =
             document.createElement("div");
 
+
         messageDiv.className =
-    message.userId === auth.currentUser?.uid
-        ? "message sent"
-        : "message received";
+            message.userId === auth.currentUser?.uid
+                ? "message sent"
+                : "message received";
 
 
         const bubble =
             document.createElement("div");
+
 
         bubble.className =
             "bubble";
@@ -495,12 +553,14 @@ onValue(messagesRef, function(snapshot) {
         const text =
             document.createElement("div");
 
+
         text.textContent =
             message.text;
 
 
         const time =
             document.createElement("span");
+
 
         time.className =
             "time";
