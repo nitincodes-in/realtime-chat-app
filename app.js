@@ -48,7 +48,40 @@ const messagesRef = ref(database, "messages");
 
 
 /* =====================================
-   GET HTML ELEMENTS
+   AUTH ELEMENTS
+   ===================================== */
+
+const authScreen = document.getElementById("authScreen");
+
+const chatScreen = document.getElementById("chatScreen");
+
+const loginForm = document.getElementById("loginForm");
+
+const signupForm = document.getElementById("signupForm");
+
+const loginEmail = document.getElementById("loginEmail");
+
+const loginPassword = document.getElementById("loginPassword");
+
+const signupEmail = document.getElementById("signupEmail");
+
+const signupPassword = document.getElementById("signupPassword");
+
+const loginBtn = document.getElementById("loginBtn");
+
+const signupBtn = document.getElementById("signupBtn");
+
+const showSignupBtn = document.getElementById("showSignupBtn");
+
+const showLoginBtn = document.getElementById("showLoginBtn");
+
+const authMessage = document.getElementById("authMessage");
+
+const logoutBtn = document.getElementById("logoutBtn");
+
+
+/* =====================================
+   CHAT ELEMENTS
    ===================================== */
 
 const messageInput = document.getElementById("messageInput");
@@ -59,20 +92,189 @@ const messagesBox = document.getElementById("messages");
 
 
 /* =====================================
-   AUTHENTICATION STATE
+   SHOW SIGN UP
+   ===================================== */
+
+showSignupBtn.addEventListener("click", function() {
+
+    loginForm.style.display = "none";
+
+    signupForm.style.display = "block";
+
+    authMessage.textContent = "";
+
+});
+
+
+/* =====================================
+   SHOW LOGIN
+   ===================================== */
+
+showLoginBtn.addEventListener("click", function() {
+
+    signupForm.style.display = "none";
+
+    loginForm.style.display = "block";
+
+    authMessage.textContent = "";
+
+});
+
+
+/* =====================================
+   CREATE ACCOUNT
+   ===================================== */
+
+signupBtn.addEventListener("click", function() {
+
+    const email = signupEmail.value.trim();
+
+    const password = signupPassword.value;
+
+    if (email === "" || password === "") {
+
+        authMessage.textContent =
+            "Email aur password dono enter karein.";
+
+        return;
+
+    }
+
+    if (password.length < 6) {
+
+        authMessage.textContent =
+            "Password kam se kam 6 characters ka hona chahiye.";
+
+        return;
+
+    }
+
+    authMessage.textContent = "Account create ho raha hai...";
+
+    createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+    )
+    .then(() => {
+
+        authMessage.textContent = "";
+
+    })
+    .catch((error) => {
+
+        console.error(error);
+
+        if (error.code === "auth/email-already-in-use") {
+
+            authMessage.textContent =
+                "Ye email already registered hai.";
+
+        } else {
+
+            authMessage.textContent =
+                error.message;
+
+        }
+
+    });
+
+});
+
+
+/* =====================================
+   LOGIN
+   ===================================== */
+
+loginBtn.addEventListener("click", function() {
+
+    const email = loginEmail.value.trim();
+
+    const password = loginPassword.value;
+
+    if (email === "" || password === "") {
+
+        authMessage.textContent =
+            "Email aur password dono enter karein.";
+
+        return;
+
+    }
+
+    authMessage.textContent = "Login ho raha hai...";
+
+    signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+    )
+    .then(() => {
+
+        authMessage.textContent = "";
+
+    })
+    .catch((error) => {
+
+        console.error(error);
+
+        if (
+            error.code === "auth/invalid-credential" ||
+            error.code === "auth/wrong-password" ||
+            error.code === "auth/user-not-found"
+        ) {
+
+            authMessage.textContent =
+                "Email ya password galat hai.";
+
+        } else {
+
+            authMessage.textContent =
+                error.message;
+
+        }
+
+    });
+
+});
+
+
+/* =====================================
+   AUTH STATE
    ===================================== */
 
 onAuthStateChanged(auth, function(user) {
 
     if (user) {
 
+        authScreen.style.display = "none";
+
+        chatScreen.style.display = "block";
+
         console.log("Logged in:", user.email);
 
     } else {
 
-        console.log("No user logged in");
+        authScreen.style.display = "flex";
+
+        chatScreen.style.display = "none";
 
     }
+
+});
+
+
+/* =====================================
+   LOGOUT
+   ===================================== */
+
+logoutBtn.addEventListener("click", function() {
+
+    signOut(auth)
+        .catch((error) => {
+
+            console.error("Logout error:", error);
+
+        });
 
 });
 
@@ -89,15 +291,23 @@ function sendMessage() {
         return;
     }
 
+    if (!auth.currentUser) {
+
+        alert("Pehle login karein.");
+
+        return;
+
+    }
+
     push(messagesRef, {
 
         text: text,
 
         time: Date.now(),
 
-        userId: auth.currentUser ? auth.currentUser.uid : "guest",
+        userId: auth.currentUser.uid,
 
-        userEmail: auth.currentUser ? auth.currentUser.email : "guest"
+        userEmail: auth.currentUser.email
 
     })
     .then(() => {
@@ -201,7 +411,7 @@ onValue(messagesRef, function(snapshot) {
 
 
 /* =====================================
-   CONNECTION MESSAGE
+   CONNECTION
    ===================================== */
 
 console.log("Chattera connected to Firebase!");
