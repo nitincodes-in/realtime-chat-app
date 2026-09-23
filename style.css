@@ -17,30 +17,32 @@ body {
     overflow: hidden;
 }
 
-/* Main Chat App */
 .chat-app {
     width: 100%;
     max-width: 600px;
     height: 100vh;
     height: 100dvh;
-    margin: auto;
+    margin: 0 auto;
     background: #efeae2;
-    display: flex;
-    flex-direction: column;
     position: relative;
+    overflow: hidden;
 }
 
-/* Header */
+/* HEADER */
+
 .chat-header {
     height: 65px;
-    min-height: 65px;
+    width: 100%;
     background: #075e54;
     color: white;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     padding: 0 15px;
-    z-index: 10;
+    position: relative;
+    z-index: 100;
 }
 
 .brand {
@@ -53,53 +55,63 @@ body {
     width: 42px;
     height: 42px;
     min-width: 42px;
+
     border-radius: 50%;
     background: white;
     color: #075e54;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-size: 22px;
     font-weight: bold;
 }
 
 .brand h1 {
     font-size: 19px;
-    line-height: 22px;
 }
 
 .brand span {
     display: block;
     font-size: 12px;
-    opacity: 0.9;
     margin-top: 2px;
+    opacity: 0.9;
 }
 
 .menu-btn {
-    border: none;
+    border: 0;
     background: transparent;
     color: white;
     font-size: 28px;
     width: 40px;
     height: 45px;
-    cursor: pointer;
 }
 
-/* Messages Area */
+/* MESSAGES */
+
 .messages {
-    flex: 1;
-    min-height: 0;
+    position: absolute;
+
+    top: 65px;
+    left: 0;
+    right: 0;
+    bottom: 62px;
+
     overflow-y: auto;
-    padding: 18px 12px 80px;
+
+    padding: 18px 12px;
+
     display: flex;
     flex-direction: column;
     gap: 10px;
+
     background: #efeae2;
 }
 
 .message {
-    display: flex;
     width: 100%;
+    display: flex;
 }
 
 .message.sent {
@@ -110,19 +122,23 @@ body {
     justify-content: flex-start;
 }
 
-/* Message Bubble */
 .bubble {
     max-width: 75%;
+
     padding: 9px 11px 6px;
+
     border-radius: 10px;
+
     font-size: 15px;
     line-height: 1.4;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+
     word-wrap: break-word;
+
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .received .bubble {
-    background: #ffffff;
+    background: white;
     border-top-left-radius: 3px;
 }
 
@@ -133,45 +149,63 @@ body {
 
 .time {
     display: block;
+
     text-align: right;
+
     font-size: 10px;
+
     color: #667781;
+
     margin-top: 3px;
 }
 
-/* Message Input Area */
+/* MESSAGE INPUT BAR */
+
 .message-area {
     position: absolute;
+
     left: 0;
+    right: 0;
     bottom: 0;
 
     width: 100%;
     height: 62px;
-    min-height: 62px;
 
     background: #f0f2f5;
+
     display: flex;
     align-items: center;
+
     gap: 8px;
+
     padding: 8px 10px;
 
-    z-index: 20;
+    z-index: 9999;
+
+    border-top: 1px solid #ddd;
 }
 
-/* Input */
+/* INPUT */
+
 .message-area input {
     flex: 1;
+
+    width: 100%;
     min-width: 0;
+
     height: 44px;
 
     border: none;
     outline: none;
+
     border-radius: 22px;
+
+    background: white;
 
     padding: 0 17px;
 
     font-size: 15px;
-    background: white;
+
     color: #222;
 }
 
@@ -179,22 +213,25 @@ body {
     color: #667781;
 }
 
-/* Buttons */
+/* BUTTONS */
+
 .attach-btn,
 .send-btn {
     width: 44px;
     min-width: 44px;
+
     height: 44px;
 
     border: none;
     border-radius: 50%;
 
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
 
     font-size: 22px;
+
+    cursor: pointer;
 }
 
 .attach-btn {
@@ -207,40 +244,25 @@ body {
     color: white;
 }
 
-.send-btn:active {
-    transform: scale(0.95);
-}
+/* MOBILE */
 
-/* Scrollbar */
-.messages::-webkit-scrollbar {
-    width: 5px;
-}
+@media (max-width: 600px) {
 
-.messages::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-}
-
-/* Desktop */
-@media (min-width: 700px) {
     .chat-app {
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.18);
-    }
-}
-
-/* Small Mobile Screens */
-@media (max-width: 380px) {
-    .brand h1 {
-        font-size: 17px;
+        width: 100%;
+        max-width: none;
     }
 
     .bubble {
-        max-width: 82%;
-        font-size: 14px;
+        max-width: 80%;
     }
+}
 
-    .message-area {
-        gap: 5px;
-        padding: 7px;
+/* DESKTOP */
+
+@media (min-width: 700px) {
+
+    .chat-app {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.18);
     }
 }
