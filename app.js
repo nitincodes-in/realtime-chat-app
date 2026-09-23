@@ -8,7 +8,10 @@ import {
     push,
     onValue
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
-
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 /* =====================================
    FIREBASE CONFIG
