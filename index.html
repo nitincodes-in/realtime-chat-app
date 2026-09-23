@@ -12,7 +12,123 @@
 
 <body>
 
-    <div class="chat-app">
+    <!-- ==============================
+         LOGIN / SIGN UP SCREEN
+         ============================== -->
+
+    <div id="authScreen" class="auth-screen">
+
+        <div class="auth-box">
+
+            <div class="auth-logo">C</div>
+
+            <h1>Chattera</h1>
+
+            <p class="auth-subtitle">
+                Connect. Chat. Stay connected.
+            </p>
+
+
+            <!-- LOGIN -->
+
+            <div id="loginForm">
+
+                <h2>Welcome Back</h2>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Email address"
+                    autocomplete="email"
+                >
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                >
+
+                <button
+                    type="button"
+                    id="loginBtn"
+                    class="auth-btn"
+                >
+                    Login
+                </button>
+
+                <p class="auth-switch">
+                    Don't have an account?
+                    <button
+                        type="button"
+                        id="showSignupBtn"
+                        class="text-btn"
+                    >
+                        Create Account
+                    </button>
+                </p>
+
+            </div>
+
+
+            <!-- SIGN UP -->
+
+            <div id="signupForm" style="display: none;">
+
+                <h2>Create Account</h2>
+
+                <input
+                    type="email"
+                    id="signupEmail"
+                    placeholder="Email address"
+                    autocomplete="email"
+                >
+
+                <input
+                    type="password"
+                    id="signupPassword"
+                    placeholder="Create password"
+                    autocomplete="new-password"
+                >
+
+                <button
+                    type="button"
+                    id="signupBtn"
+                    class="auth-btn"
+                >
+                    Create Account
+                </button>
+
+                <p class="auth-switch">
+                    Already have an account?
+                    <button
+                        type="button"
+                        id="showLoginBtn"
+                        class="text-btn"
+                    >
+                        Login
+                    </button>
+                </p>
+
+            </div>
+
+
+            <p id="authMessage" class="auth-message"></p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==============================
+         CHAT SCREEN
+         ============================== -->
+
+    <div
+        class="chat-app"
+        id="chatScreen"
+        style="display: none;"
+    >
 
         <header class="chat-header">
 
@@ -22,38 +138,41 @@
 
                 <div>
                     <h1>Chattera</h1>
-                    <span>Online</span>
+                    <span id="onlineStatus">Online</span>
                 </div>
 
             </div>
 
-            <button class="menu-btn">⋮</button>
+
+            <button
+                class="menu-btn"
+                id="logoutBtn"
+                type="button"
+                title="Logout"
+            >
+                ⇥
+            </button>
 
         </header>
 
 
-        <main class="messages" id="messages">
-
-            <div class="message received">
-
-                <div class="bubble">
-
-                    Welcome to Chattera 👋
-
-                    <span class="time">Now</span>
-
-                </div>
-
-            </div>
+        <main
+            class="messages"
+            id="messages"
+        >
 
         </main>
 
 
         <footer class="message-area">
 
-            <button class="attach-btn" type="button">
+            <button
+                class="attach-btn"
+                type="button"
+            >
                 ＋
             </button>
+
 
             <input
                 type="text"
@@ -61,6 +180,7 @@
                 placeholder="Type a message..."
                 autocomplete="off"
             >
+
 
             <button
                 id="sendBtn"
@@ -75,8 +195,12 @@
     </div>
 
 
-    <!-- Only our app module -->
-    <script type="module" src="app.js"></script>
+    <!-- APP JAVASCRIPT -->
+
+    <script
+        type="module"
+        src="app.js"
+    ></script>
 
 </body>
 
