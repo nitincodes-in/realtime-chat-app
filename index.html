@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,42 +14,46 @@
 
     <div class="chat-app">
 
-        <!-- Header -->
         <header class="chat-header">
+
             <div class="brand">
+
                 <div class="logo">C</div>
+
                 <div>
                     <h1>Chattera</h1>
                     <span>Online</span>
                 </div>
+
             </div>
 
             <button class="menu-btn">⋮</button>
+
         </header>
 
-        <!-- Messages -->
+
         <main class="messages" id="messages">
 
             <div class="message received">
-                <div class="bubble">
-                    Welcome to Chattera 👋
-                    <span class="time">Now</span>
-                </div>
-            </div>
 
-            <div class="message sent">
                 <div class="bubble">
-                    Hello Chattera!
-                    <span class="time">Now ✓</span>
+
+                    Welcome to Chattera 👋
+
+                    <span class="time">Now</span>
+
                 </div>
+
             </div>
 
         </main>
 
-        <!-- Message Input -->
+
         <footer class="message-area">
 
-            <button class="attach-btn">＋</button>
+            <button class="attach-btn" type="button">
+                ＋
+            </button>
 
             <input
                 type="text"
@@ -57,7 +62,11 @@
                 autocomplete="off"
             >
 
-            <button id="sendBtn" class="send-btn">
+            <button
+                id="sendBtn"
+                class="send-btn"
+                type="button"
+            >
                 ➤
             </button>
 
@@ -65,12 +74,10 @@
 
     </div>
 
-    <!-- Firebase -->
-    <script type="module" src="https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js"></script>
 
-    <!-- App JavaScript -->
+    <!-- Only our app module -->
     <script type="module" src="app.js"></script>
 
 </body>
+
 </html>
