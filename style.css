@@ -17,22 +17,182 @@ body {
     overflow: hidden;
 }
 
+
+/* =====================================
+   AUTH SCREEN
+   ===================================== */
+
+.auth-screen {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: #e9edef;
+}
+
+.auth-box {
+    width: 100%;
+    max-width: 400px;
+
+    background: white;
+
+    padding: 35px 28px;
+
+    border-radius: 18px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+
+    text-align: center;
+}
+
+.auth-logo {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 15px;
+
+    border-radius: 50%;
+
+    background: #075e54;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.auth-box h1 {
+    font-size: 28px;
+    color: #075e54;
+    margin-bottom: 5px;
+}
+
+.auth-subtitle {
+    color: #667781;
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+
+.auth-box h2 {
+    font-size: 20px;
+    margin-bottom: 18px;
+}
+
+.auth-box input {
+    width: 100%;
+    height: 48px;
+
+    border: 1px solid #d5d9dc;
+    border-radius: 10px;
+
+    outline: none;
+
+    padding: 0 14px;
+
+    margin-bottom: 12px;
+
+    font-size: 15px;
+
+    background: #f8f9fa;
+}
+
+.auth-box input:focus {
+    border-color: #128c7e;
+    background: white;
+}
+
+.auth-btn {
+    width: 100%;
+    height: 48px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #128c7e;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    margin-top: 5px;
+}
+
+.auth-btn:active {
+    transform: scale(0.98);
+}
+
+.auth-switch {
+    margin-top: 18px;
+
+    font-size: 13px;
+
+    color: #667781;
+}
+
+.text-btn {
+    border: none;
+    background: transparent;
+
+    color: #075e54;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    font-size: 13px;
+}
+
+.auth-message {
+    min-height: 20px;
+
+    margin-top: 15px;
+
+    font-size: 13px;
+
+    color: #d32f2f;
+}
+
+
+/* =====================================
+   CHAT APP
+   ===================================== */
+
 .chat-app {
     width: 100%;
     max-width: 600px;
+
     height: 100vh;
     height: 100dvh;
+
     margin: 0 auto;
+
     background: #efeae2;
+
     position: relative;
+
     overflow: hidden;
 }
 
-/* HEADER */
+
+/* =====================================
+   HEADER
+   ===================================== */
 
 .chat-header {
     height: 65px;
     width: 100%;
+
     background: #075e54;
     color: white;
 
@@ -41,6 +201,7 @@ body {
     justify-content: space-between;
 
     padding: 0 15px;
+
     position: relative;
     z-index: 100;
 }
@@ -48,6 +209,7 @@ body {
 .brand {
     display: flex;
     align-items: center;
+
     gap: 10px;
 }
 
@@ -57,6 +219,7 @@ body {
     min-width: 42px;
 
     border-radius: 50%;
+
     background: white;
     color: #075e54;
 
@@ -74,21 +237,33 @@ body {
 
 .brand span {
     display: block;
+
     font-size: 12px;
+
     margin-top: 2px;
+
     opacity: 0.9;
 }
 
 .menu-btn {
     border: 0;
+
     background: transparent;
+
     color: white;
+
     font-size: 28px;
+
     width: 40px;
     height: 45px;
+
+    cursor: pointer;
 }
 
-/* MESSAGES */
+
+/* =====================================
+   MESSAGES
+   ===================================== */
 
 .messages {
     position: absolute;
@@ -104,6 +279,7 @@ body {
 
     display: flex;
     flex-direction: column;
+
     gap: 10px;
 
     background: #efeae2;
@@ -111,6 +287,7 @@ body {
 
 .message {
     width: 100%;
+
     display: flex;
 }
 
@@ -139,11 +316,13 @@ body {
 
 .received .bubble {
     background: white;
+
     border-top-left-radius: 3px;
 }
 
 .sent .bubble {
     background: #d9fdd3;
+
     border-top-right-radius: 3px;
 }
 
@@ -159,7 +338,10 @@ body {
     margin-top: 3px;
 }
 
-/* MESSAGE INPUT BAR */
+
+/* =====================================
+   MESSAGE INPUT
+   ===================================== */
 
 .message-area {
     position: absolute;
@@ -184,8 +366,6 @@ body {
 
     border-top: 1px solid #ddd;
 }
-
-/* INPUT */
 
 .message-area input {
     flex: 1;
@@ -213,7 +393,10 @@ body {
     color: #667781;
 }
 
-/* BUTTONS */
+
+/* =====================================
+   BUTTONS
+   ===================================== */
 
 .attach-btn,
 .send-btn {
@@ -236,33 +419,46 @@ body {
 
 .attach-btn {
     background: transparent;
+
     color: #54656f;
 }
 
 .send-btn {
     background: #128c7e;
+
     color: white;
 }
 
-/* MOBILE */
+
+/* =====================================
+   MOBILE
+   ===================================== */
 
 @media (max-width: 600px) {
 
-    .chat-app {
-        width: 100%;
-        max-width: none;
+    .auth-screen {
+        padding: 15px;
+    }
+
+    .auth-box {
+        padding: 30px 22px;
     }
 
     .bubble {
         max-width: 80%;
     }
+
 }
 
-/* DESKTOP */
+
+/* =====================================
+   DESKTOP
+   ===================================== */
 
 @media (min-width: 700px) {
 
     .chat-app {
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.18);
     }
+
 }
