@@ -23,7 +23,7 @@ import {
    ===================================== */
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBAx3DahKSB9UXTrpFcppk97D6nNLRHLCM",
+    apiKey: "AIzaSyBAx3DahKSB9UXTRpFcppk97D6nNLRHLCM",
     authDomain: "realtime-chat-app-85621.firebaseapp.com",
     databaseURL: "https://realtime-chat-app-85621-default-rtdb.firebaseio.com",
     projectId: "realtime-chat-app-85621",
