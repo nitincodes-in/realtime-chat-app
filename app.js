@@ -52,27 +52,21 @@ const messagesRef = ref(database, "messages");
    ===================================== */
 
 const authScreen = document.getElementById("authScreen");
-
 const chatScreen = document.getElementById("chatScreen");
 
 const loginForm = document.getElementById("loginForm");
-
 const signupForm = document.getElementById("signupForm");
 
 const loginEmail = document.getElementById("loginEmail");
-
 const loginPassword = document.getElementById("loginPassword");
 
 const signupEmail = document.getElementById("signupEmail");
-
 const signupPassword = document.getElementById("signupPassword");
 
 const loginBtn = document.getElementById("loginBtn");
-
 const signupBtn = document.getElementById("signupBtn");
 
 const showSignupBtn = document.getElementById("showSignupBtn");
-
 const showLoginBtn = document.getElementById("showLoginBtn");
 
 const authMessage = document.getElementById("authMessage");
@@ -85,10 +79,19 @@ const logoutBtn = document.getElementById("logoutBtn");
    ===================================== */
 
 const messageInput = document.getElementById("messageInput");
-
 const sendBtn = document.getElementById("sendBtn");
-
 const messagesBox = document.getElementById("messages");
+
+
+/* =====================================
+   EMAIL VALIDATION
+   ===================================== */
+
+function isValidEmail(email) {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+}
 
 
 /* =====================================
@@ -131,25 +134,40 @@ signupBtn.addEventListener("click", function() {
 
     const password = signupPassword.value;
 
+
     if (email === "" || password === "") {
 
         authMessage.textContent =
-            "Email aur password dono enter karein.";
+            "Please enter both email and password.";
 
         return;
 
     }
+
+
+    if (!isValidEmail(email)) {
+
+        authMessage.textContent =
+            "Please enter a valid email address.";
+
+        return;
+
+    }
+
 
     if (password.length < 6) {
 
         authMessage.textContent =
-            "Password kam se kam 6 characters ka hona chahiye.";
+            "Password must be at least 6 characters.";
 
         return;
 
     }
 
-    authMessage.textContent = "Account create ho raha hai...";
+
+    authMessage.textContent =
+        "Creating account...";
+
 
     createUserWithEmailAndPassword(
         auth,
@@ -165,15 +183,26 @@ signupBtn.addEventListener("click", function() {
 
         console.error(error);
 
+
         if (error.code === "auth/email-already-in-use") {
 
             authMessage.textContent =
-                "Ye email already registered hai.";
+                "This email is already registered.";
+
+        } else if (error.code === "auth/invalid-email") {
+
+            authMessage.textContent =
+                "Please enter a valid email address.";
+
+        } else if (error.code === "auth/weak-password") {
+
+            authMessage.textContent =
+                "Password must be at least 6 characters.";
 
         } else {
 
             authMessage.textContent =
-                error.message;
+                "Unable to create account. Please try again.";
 
         }
 
@@ -192,16 +221,30 @@ loginBtn.addEventListener("click", function() {
 
     const password = loginPassword.value;
 
+
     if (email === "" || password === "") {
 
         authMessage.textContent =
-            "Email aur password dono enter karein.";
+            "Please enter both email and password.";
 
         return;
 
     }
 
-    authMessage.textContent = "Login ho raha hai...";
+
+    if (!isValidEmail(email)) {
+
+        authMessage.textContent =
+            "Please enter a valid email address.";
+
+        return;
+
+    }
+
+
+    authMessage.textContent =
+        "Logging in...";
+
 
     signInWithEmailAndPassword(
         auth,
@@ -217,6 +260,7 @@ loginBtn.addEventListener("click", function() {
 
         console.error(error);
 
+
         if (
             error.code === "auth/invalid-credential" ||
             error.code === "auth/wrong-password" ||
@@ -224,12 +268,17 @@ loginBtn.addEventListener("click", function() {
         ) {
 
             authMessage.textContent =
-                "Email ya password galat hai.";
+                "Incorrect email or password.";
+
+        } else if (error.code === "auth/invalid-email") {
+
+            authMessage.textContent =
+                "Please enter a valid email address.";
 
         } else {
 
             authMessage.textContent =
-                error.message;
+                "Unable to login. Please try again.";
 
         }
 
@@ -287,17 +336,22 @@ function sendMessage() {
 
     const text = messageInput.value.trim();
 
+
     if (text === "") {
+
         return;
+
     }
+
 
     if (!auth.currentUser) {
 
-        alert("Pehle login karein.");
+        alert("Please login first.");
 
         return;
 
     }
+
 
     push(messagesRef, {
 
@@ -322,7 +376,7 @@ function sendMessage() {
         console.error("Message send error:", error);
 
         alert(
-            "Message send nahi hua. Firebase Database rules check karein."
+            "Message could not be sent. Please check your connection and try again."
         );
 
     });
@@ -362,36 +416,52 @@ onValue(messagesRef, function(snapshot) {
 
     messagesBox.innerHTML = "";
 
+
     snapshot.forEach(function(childSnapshot) {
 
         const message = childSnapshot.val();
 
-        const messageDiv = document.createElement("div");
 
-        messageDiv.className = "message sent";
+        const messageDiv =
+            document.createElement("div");
 
-
-        const bubble = document.createElement("div");
-
-        bubble.className = "bubble";
+        messageDiv.className =
+            "message sent";
 
 
-        const text = document.createElement("div");
+        const bubble =
+            document.createElement("div");
 
-        text.textContent = message.text;
-
-
-        const time = document.createElement("span");
-
-        time.className = "time";
+        bubble.className =
+            "bubble";
 
 
-        const date = new Date(message.time);
+        const text =
+            document.createElement("div");
+
+        text.textContent =
+            message.text;
+
+
+        const time =
+            document.createElement("span");
+
+        time.className =
+            "time";
+
+
+        const date =
+            new Date(message.time);
+
 
         time.textContent =
-            date.getHours().toString().padStart(2, "0")
+            date.getHours()
+                .toString()
+                .padStart(2, "0")
             + ":" +
-            date.getMinutes().toString().padStart(2, "0");
+            date.getMinutes()
+                .toString()
+                .padStart(2, "0");
 
 
         bubble.appendChild(text);
@@ -405,7 +475,8 @@ onValue(messagesRef, function(snapshot) {
     });
 
 
-    messagesBox.scrollTop = messagesBox.scrollHeight;
+    messagesBox.scrollTop =
+        messagesBox.scrollHeight;
 
 });
 
@@ -414,4 +485,6 @@ onValue(messagesRef, function(snapshot) {
    CONNECTION
    ===================================== */
 
-console.log("Chattera connected to Firebase!");
+console.log(
+    "Chattera connected to Firebase!"
+);
