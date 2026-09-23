@@ -8,17 +8,22 @@ import {
     push,
     onValue
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
 import {
     getAuth,
-    onAuthStateChanged
+    onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
 
 /* =====================================
    FIREBASE CONFIG
    ===================================== */
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBAx3DahKSB9UXTRpFcppk97D6nNLRHLCM",
+    apiKey: "AIzaSyBAx3DahKSB9UXTrpFcppk97D6nNLRHLCM",
     authDomain: "realtime-chat-app-85621.firebaseapp.com",
     databaseURL: "https://realtime-chat-app-85621-default-rtdb.firebaseio.com",
     projectId: "realtime-chat-app-85621",
@@ -37,6 +42,8 @@ const app = initializeApp(firebaseConfig);
 
 const database = getDatabase(app);
 
+const auth = getAuth(app);
+
 const messagesRef = ref(database, "messages");
 
 
@@ -52,6 +59,25 @@ const messagesBox = document.getElementById("messages");
 
 
 /* =====================================
+   AUTHENTICATION STATE
+   ===================================== */
+
+onAuthStateChanged(auth, function(user) {
+
+    if (user) {
+
+        console.log("Logged in:", user.email);
+
+    } else {
+
+        console.log("No user logged in");
+
+    }
+
+});
+
+
+/* =====================================
    SEND MESSAGE
    ===================================== */
 
@@ -64,8 +90,15 @@ function sendMessage() {
     }
 
     push(messagesRef, {
+
         text: text,
-        time: Date.now()
+
+        time: Date.now(),
+
+        userId: auth.currentUser ? auth.currentUser.uid : "guest",
+
+        userEmail: auth.currentUser ? auth.currentUser.email : "guest"
+
     })
     .then(() => {
 
@@ -78,7 +111,9 @@ function sendMessage() {
 
         console.error("Message send error:", error);
 
-        alert("Message send nahi hua. Firebase Database rules check karein.");
+        alert(
+            "Message send nahi hua. Firebase Database rules check karein."
+        );
 
     });
 
